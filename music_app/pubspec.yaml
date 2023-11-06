@@ -76,59 +76,139 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    # Inter
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Black.ttf
+          weight: 900
+        - asset: assets/fonts/inter/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter-Light.ttf
+          weight: 300
+        - asset: assets/fonts/inter/Inter-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/inter/Inter-Thin.ttf
+          weight: 100
+
+    # Montserrat
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/montserrat/Montserrat-Black.ttf
+          weight: 900
+        - asset: assets/fonts/montserrat/Montserrat-BlackItalic.ttf
+          weight: 900
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/montserrat/Montserrat-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/montserrat/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/montserrat/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/montserrat/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/montserrat/Montserrat-Italic.ttf
+          weight: 400
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/montserrat/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/montserrat/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+
+        - asset: assets/fonts/montserrat/Montserrat-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/montserrat/Montserrat-ThinItalic.ttf
+          weight: 100
+          style: italic
+
+    # Urbanist
     - family: Urbanist
       fonts:
-        - asset: assets/fonts/Urbanist-Black.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Black.ttf
           weight: 900
-        - asset: assets/fonts/Urbanist-BlackItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-BlackItalic.ttf
           weight: 900
           style: italic
 
-        - asset: assets/fonts/Urbanist-ExtraBold.ttf
+        - asset: assets/fonts/urbanist/Urbanist-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/Urbanist-ExtraBoldItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-ExtraBoldItalic.ttf
           weight: 800
           style: italic
 
-        - asset: assets/fonts/Urbanist-Bold.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Urbanist-BoldItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-BoldItalic.ttf
           weight: 700
           style: italic
 
-        - asset: assets/fonts/Urbanist-SemiBold.ttf
+        - asset: assets/fonts/urbanist/Urbanist-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Urbanist-SemiBoldItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-SemiBoldItalic.ttf
           weight: 600
           style: italic
 
-        - asset: assets/fonts/Urbanist-Medium.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Urbanist-MediumItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-MediumItalic.ttf
           weight: 500
           style: italic
 
-        - asset: assets/fonts/Urbanist-Regular.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Urbanist-Italic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Italic.ttf
           weight: 400
           style: italic
 
-        - asset: assets/fonts/Urbanist-Light.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Light.ttf
           weight: 300
-        - asset: assets/fonts/Urbanist-LightItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-LightItalic.ttf
           weight: 300
           style: italic
 
-        - asset: assets/fonts/Urbanist-ExtraLight.ttf
+        - asset: assets/fonts/urbanist/Urbanist-ExtraLight.ttf
           weight: 200
-        - asset: assets/fonts/Urbanist-ExtraLightItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-ExtraLightItalic.ttf
           weight: 200
           style: italic
 
-        - asset: assets/fonts/Urbanist-Thin.ttf
+        - asset: assets/fonts/urbanist/Urbanist-Thin.ttf
           weight: 100
-        - asset: assets/fonts/Urbanist-ThinItalic.ttf
+        - asset: assets/fonts/urbanist/Urbanist-ThinItalic.ttf
           weight: 100
           style: italic
   #   - family: Trajan Pro

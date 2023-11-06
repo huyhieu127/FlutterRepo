@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                     const Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                 color: AppColor.text1,
                                 fontWeight: FontWeight.w700,
+                                height: 1.1,
                                 fontSize: 20,
                               ),
                             ),
@@ -121,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 120.0, left: 25.0, top: 20.0, bottom: 20.0),
+                        padding: const EdgeInsets.only(right: 100.0, left: 25.0, top: 20.0, bottom: 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                               "Enjoy All Benefits!",
                               style: TextStyle(
                                 color: AppColor.icon2,
-                                fontSize: 20,
+                                fontSize: 22,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -137,10 +138,10 @@ class _HomePageState extends State<HomePage> {
                             const Text(
                               "Enjoy listening podcast with better audio quality, without restrictions and without ads",
                               style: TextStyle(
-                                color: AppColor.icon2,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                              ),
+                                  color: AppColor.icon2,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.italic),
                             ),
                             const SizedBox(height: 14),
                             AppInkWell(
@@ -151,13 +152,13 @@ class _HomePageState extends State<HomePage> {
                                 color: AppColor.button2,
                               ),
                               child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                                 child: Text(
                                   "Get Premium",
                                   style: TextStyle(
                                     color: AppColor.primary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                   // List
                   const SizedBox(height: 12),
                   SizedBox(
-                    height: 110,
+                    height: 100,
                     child: ListView.separated(
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
@@ -218,8 +219,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24),
                           child: Image.asset(
                             subscriptions[index],
-                            width: 110,
-                            height: 110,
+                            width: 100,
+                            height: 100,
                             fit: BoxFit.cover,
                           ),
                         );
@@ -287,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 14),
                             Expanded(
                               child: SizedBox(
                                 height: 120,
@@ -297,8 +298,12 @@ class _HomePageState extends State<HomePage> {
                                     const Padding(
                                       padding: EdgeInsets.only(right: 24.0),
                                       child: Text(
-                                        "Chúng ta của hiện tạiChúng ta của hiện tạiChúng ta của hiện tạiChúng ta của hiện tại",
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, height: 1.4),
+                                        "Chúng ta của hiện tại chúng ta của hiện tại chúng ta của hiện tại chúng ta của hiện tại",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.4,
+                                        ),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -342,7 +347,7 @@ class _HomePageState extends State<HomePage> {
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(height: 2),
+                                    const SizedBox(height: 8),
                                     Row(
                                       children: [
                                         AppInkWell(
@@ -377,57 +382,46 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         const SizedBox(width: 16),
                                         AppInkWell(
-                                          radius: 20,
+                                          radius: 15,
                                           onTap: () {},
                                           child: SizedBox(
-                                            width: 40,
-                                            height: 40,
+                                            width: 30,
+                                            height: 30,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: SvgPicture.asset(
-                                                "$assetIcon/ic_add_playlist.svg",
-                                                width: 24,
-                                                height: 24,
-                                              ),
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: SvgPicture.asset("$assetIcon/ic_add_playlist.svg"),
                                             ),
                                           ),
                                         ),
                                         const SizedBox(width: 4),
                                         AppInkWell(
-                                          radius: 20,
+                                          radius: 15,
                                           onTap: () {},
                                           child: SizedBox(
-                                            width: 40,
-                                            height: 40,
+                                            width: 30,
+                                            height: 30,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: SvgPicture.asset(
-                                                "$assetIcon/ic_download.svg",
-                                                width: 24,
-                                                height: 24,
-                                              ),
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: SvgPicture.asset("$assetIcon/ic_download.svg"),
                                             ),
                                           ),
                                         ),
                                         const Expanded(child: SizedBox()),
                                         AppInkWell(
-                                          radius: 20,
+                                          radius: 15,
                                           onTap: () {},
                                           child: SizedBox(
-                                            width: 40,
-                                            height: 40,
+                                            width: 30,
+                                            height: 30,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: SvgPicture.asset(
-                                                "$assetIcon/ic_more.svg",
-                                                width: 24,
-                                                height: 24,
-                                              ),
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: SvgPicture.asset("$assetIcon/ic_more.svg"),
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(width: 14),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
