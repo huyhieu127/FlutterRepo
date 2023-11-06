@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:music_app/helper/AppFont.dart';
+import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/pages/menu/MenuPage.dart';
 
 void main() {
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        fontFamily: AppFont.urbanist,
       ),
       home: const MenuPage(),
     );
