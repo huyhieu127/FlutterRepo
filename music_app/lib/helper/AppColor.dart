@@ -13,6 +13,8 @@ class AppColor {
   static const Color button1 = Colors.black;
   static const Color button2 = Colors.white;
   static const Color button3 = Colors.grey;
+  static const Color button4 = Colors.green;
+  static const Color button5 = Colors.black87;
 
   static const Color text1 = Colors.black;
   static const Color text2 = Colors.white;

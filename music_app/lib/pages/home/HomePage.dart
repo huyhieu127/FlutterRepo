@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:music_app/components/SongItem1.dart';
+import 'package:music_app/components/SongItem2.dart';
+import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppDecoration.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
+import 'package:music_app/widgets/AppTextTopic.dart';
 
-import '../../helper/AppColor.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -175,36 +178,10 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   // Title
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Subscriptions",
-                          style: TextStyle(
-                            color: AppColor.text1,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        AppInkWell(
-                          onTap: () {},
-                          radius: 12,
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            child: Text(
-                              "See All",
-                              style: TextStyle(
-                                color: AppColor.primary,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                  AppTextTopic(
+                    label: "Subscriptions",
+                    buttonName: "See All",
+                    onTapButton: () {},
                   ),
                   // List
                   const SizedBox(height: 12),
@@ -215,15 +192,7 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(24),
-                          child: Image.asset(
-                            subscriptions[index],
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        );
+                        return SongItem2(thumbnail: subscriptions[index]);
                       },
                       separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
                     ),
@@ -236,36 +205,10 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   // Title
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "New Updates",
-                          style: TextStyle(
-                            color: AppColor.text1,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        AppInkWell(
-                          onTap: () {},
-                          radius: 12,
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            child: Text(
-                              "See All",
-                              style: TextStyle(
-                                color: AppColor.primary,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                  AppTextTopic(
+                    label: "New Updates",
+                    buttonName: "See All",
+                    onTapButton: () {},
                   ),
                   // List
                   const SizedBox(height: 12),
@@ -274,161 +217,30 @@ class _HomePageState extends State<HomePage> {
                     //newUpdates.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    padding: const EdgeInsets.only(bottom: 24),
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(left: 24),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(24),
-                              child: Image.asset(
-                                newUpdates[index + 1],
-                                width: 120,
-                                height: 120,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: SizedBox(
-                                height: 120,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 24.0),
-                                      child: Text(
-                                        "Chúng ta của hiện tại chúng ta của hiện tại chúng ta của hiện tại chúng ta của hiện tại",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.4,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    const Expanded(child: SizedBox()),
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 24.0),
-                                      child: Row(
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              "Sơn Tùng - MTP",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColor.text3,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          SizedBox(width: 12),
-                                          Text(
-                                            "|",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColor.text3,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                          SizedBox(width: 12),
-                                          Text(
-                                            "4:46",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColor.text3,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        AppInkWell(
-                                          onTap: () {},
-                                          radius: 20,
-                                          decoration: AppDecoration.boxDecoration(radius: 20, color: AppColor.primary),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                                            child: SizedBox(
-                                              height: 30,
-                                              child: Row(
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    "$assetIcon/ic_play_filled.svg",
-                                                    width: 24,
-                                                    height: 24,
-                                                    colorFilter:
-                                                        const ColorFilter.mode(AppColor.icon2, BlendMode.srcIn),
-                                                  ),
-                                                  const SizedBox(width: 2),
-                                                  const Text("Play",
-                                                      style: TextStyle(
-                                                        color: AppColor.icon2,
-                                                        fontSize: 13,
-                                                        fontWeight: FontWeight.w600,
-                                                      )),
-                                                  const SizedBox(width: 4),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 16),
-                                        AppInkWell(
-                                          radius: 15,
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(6.0),
-                                              child: SvgPicture.asset("$assetIcon/ic_add_playlist.svg"),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        AppInkWell(
-                                          radius: 15,
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(6.0),
-                                              child: SvgPicture.asset("$assetIcon/ic_download.svg"),
-                                            ),
-                                          ),
-                                        ),
-                                        const Expanded(child: SizedBox()),
-                                        AppInkWell(
-                                          radius: 15,
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(6.0),
-                                              child: SvgPicture.asset("$assetIcon/ic_more.svg"),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 14),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
+                          padding: const EdgeInsets.only(left: 24, right: 14),
+                          child: SongItem1(
+                            thumbnail: newUpdates[index + 1],
+                            title: 'Chúng ta của hiện tại và tương lai trong quá khứ tiếp diễn',
+                            author: 'Sơn Tường - ATM',
+                            time: 456000,
+                            onTapPlay: () {},
+                            onTapAddPlaylist: () {
+                              setState(() {
+                                //isAddedPlaylist = !isAddedPlaylist;
+                              });
+                            },
+                            onTapDownload: () {
+                              setState(() {
+                                //isDownloaded = !isDownloaded;
+                              });
+                            },
+                            onTapMore: () {},
+                            isAddedPlaylist: false,
+                            isDownloaded: false,
+                          ));
                     },
                     separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
                   ),
