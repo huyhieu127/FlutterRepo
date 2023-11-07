@@ -16,13 +16,18 @@ class AppTextTopic extends StatelessWidget {
       padding: const EdgeInsets.only(left: 24, right: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColor.text1,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
+          Flexible(
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: AppColor.text1,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                height: 1.4
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           AppInkWell(
@@ -34,8 +39,8 @@ class AppTextTopic extends StatelessWidget {
                 buttonName,
                 style: const TextStyle(
                   color: AppColor.primary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

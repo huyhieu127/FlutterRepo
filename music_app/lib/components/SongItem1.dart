@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:music_app/helper/AppColor.dart';
-
-import '../widgets/ControllerItem.dart';
+import 'package:music_app/widgets/AppControllerItem.dart';
 
 class SongItem1 extends StatelessWidget {
   const SongItem1({
