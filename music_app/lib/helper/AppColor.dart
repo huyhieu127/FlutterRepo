@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   static const Color primary = Colors.pinkAccent;
+  static const Color primaryLight = Color(0xFFFFECF0);
+  static const Color primaryShadow = Color(0xFFDA5B84);
+  static const Color divider = Color(0xFFEAEAEA);
 
   static const Color startColor = primary;
   static const Color endColor = Color(0xFFFF80AB);

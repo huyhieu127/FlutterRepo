@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/components/GetPremium.dart';
+import 'package:music_app/components/QuestionBottomSheet.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppDecoration.dart';
 import 'package:music_app/helper/AppResource.dart';
@@ -33,9 +34,28 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             // Header
             AppHeader(
-              label: "My Library",
+              label: "Profile",
               iconButton: "$assetIcon/ic_menu.svg",
-              onTapButton: () {},
+              onTapButton: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return QuestionBottomSheet(
+                      title: 'Logout',
+                      titleColor: Colors.red,
+                      widgetContent: const Text(
+                        "Are you sure want to logout?",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      onTapAccept: (context){
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                );
+              },
             ),
             Expanded(
               child: SingleChildScrollView(

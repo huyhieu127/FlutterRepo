@@ -43,7 +43,7 @@ class _AppHeaderState extends State<AppHeader> {
             ),
           ),
           AppInkWell(
-            onTap: () {},
+            onTap: widget.onTapButton,
             radius: 25,
             child: SizedBox(
               width: 50,

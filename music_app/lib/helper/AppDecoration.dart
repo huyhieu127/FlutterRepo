@@ -23,6 +23,11 @@ class AppDecoration {
         borderRadius: BorderRadius.circular(radius),
       );
 
+  static boxDecorationDynamic({required BorderRadius borderRadius, int alpha = 20, Color? color}) => BoxDecoration(
+        color: color ?? AppColor.primary,
+        borderRadius: borderRadius,
+      );
+
   static borderInkWell({double radius = 16}) => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
       );
