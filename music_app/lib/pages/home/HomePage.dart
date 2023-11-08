@@ -5,6 +5,8 @@ import 'package:music_app/components/SongItem2.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppDecoration.dart';
 import 'package:music_app/helper/AppResource.dart';
+import 'package:music_app/helper/AppRoute.dart';
+import 'package:music_app/pages/library/LibraryPage.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
 import 'package:music_app/widgets/AppTextTopic.dart';
 
@@ -196,7 +198,12 @@ class _HomePageState extends State<HomePage> {
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             itemBuilder: (context, index) {
-                              return SongItem2(thumbnail: subscriptions[index]);
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, AppRoute.library);
+                                },
+                                child: SongItem2(thumbnail: subscriptions[index]),
+                              );
                             },
                             separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
                           ),

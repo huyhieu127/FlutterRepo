@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:music_app/helper/AppFont.dart';
-import 'package:music_app/helper/AppResource.dart';
+import 'package:music_app/helper/AppRoute.dart';
+import 'package:music_app/pages/home/HomePage.dart';
+import 'package:music_app/pages/library/LibraryPage.dart';
 import 'package:music_app/pages/menu/MenuPage.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark
-    ),
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark),
   );
   runApp(const MyApp());
 }
@@ -43,7 +42,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: AppFont.inter,
       ),
+      routes: _routes(),
       home: const MenuPage(),
     );
   }
+
+  Map<String, WidgetBuilder> _routes() => <String, WidgetBuilder>{
+        AppRoute.home: (context) => const HomePage(),
+        AppRoute.library: (context) => const LibraryPage(),
+      };
 }
