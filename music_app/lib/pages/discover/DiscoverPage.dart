@@ -13,7 +13,7 @@ class DiscoverPage extends StatefulWidget {
   State<DiscoverPage> createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _DiscoverPageState extends State<DiscoverPage> with AutomaticKeepAliveClientMixin {
   final _searchController = SearchController();
   final _searchFocusNode = FocusNode();
 
@@ -48,6 +48,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -150,4 +151,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

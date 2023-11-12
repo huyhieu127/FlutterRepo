@@ -19,6 +19,7 @@ class MenuPage extends StatefulWidget {
 const sizeIcon = Size(32, 32);
 
 class _MenuPageState extends State<MenuPage> {
+  final PageController _pageController = PageController();
   final menus = [
     MenuForm(
       page: const HomePage(),
@@ -91,7 +92,10 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: menus[currentPage].page,
+      body: PageView(
+        controller: _pageController,
+        children: menus.map((e) => e.page).toList(),
+      ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           highlightColor: Colors.transparent,
@@ -99,6 +103,8 @@ class _MenuPageState extends State<MenuPage> {
         ),
         child: BottomNavigationBar(
           onTap: (index) {
+            if (currentPage == index) return;
+            _pageController.jumpToPage(index);
             setState(() {
               currentPage = index;
             });

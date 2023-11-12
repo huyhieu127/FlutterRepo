@@ -13,7 +13,7 @@ class LibraryPage extends StatefulWidget {
   State<LibraryPage> createState() => _LibraryPageState();
 }
 
-class _LibraryPageState extends State<LibraryPage> with TickerProviderStateMixin {
+class _LibraryPageState extends State<LibraryPage> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _searchController = SearchController();
   final _searchFocusNode = FocusNode();
 
@@ -46,13 +46,10 @@ class _LibraryPageState extends State<LibraryPage> with TickerProviderStateMixin
     "$assetImage/thumbnail_4.jpg",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var tabController = TabController(length: 2, vsync: this);
     return SafeArea(
       child: Scaffold(
@@ -108,4 +105,7 @@ class _LibraryPageState extends State<LibraryPage> with TickerProviderStateMixin
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
