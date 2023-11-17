@@ -5,6 +5,7 @@ import '../helper/AppDecoration.dart';
 class AppInkWell extends InkWell {
   const AppInkWell({super.key, super.onTap, this.radius = 16, this.decoration, super.child});
 
+  @override
   final double radius;
   final Decoration? decoration;
 

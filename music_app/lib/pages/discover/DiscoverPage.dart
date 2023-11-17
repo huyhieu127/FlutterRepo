@@ -88,7 +88,7 @@ class _DiscoverPageState extends State<DiscoverPage> with AutomaticKeepAliveClie
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             itemBuilder: (context, index) {
-                              return SongItem2(thumbnail: subscriptions[index]);
+                              return SongItem2(thumbnail: subscriptions[index], isLoading: false);
                             },
                             separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
                           ),

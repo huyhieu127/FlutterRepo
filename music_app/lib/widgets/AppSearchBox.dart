@@ -29,7 +29,7 @@ class _AppSearchBoxState extends State<AppSearchBox> {
     super.initState();
     widget.focusNode.addListener(() {
       setState(() {
-        _isFocused = widget.focusNode!.hasFocus;
+        _isFocused = widget.focusNode.hasFocus;
       });
     });
   }

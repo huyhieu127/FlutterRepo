@@ -8,6 +8,7 @@ class AppColor {
 
   static const Color startColor = primary;
   static const Color endColor = Color(0xFFFF80AB);
+  static const Color shimmer = Color(0xFFEAEAEA);
 
   static const Color bg1 = Colors.black;
   static const Color bg2 = Colors.white;
