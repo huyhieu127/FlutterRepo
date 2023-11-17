@@ -5,7 +5,9 @@ import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
 
 class GetPremium extends StatelessWidget {
-  const GetPremium({super.key});
+  const GetPremium({super.key, this.getPremiumTap});
+
+  final GestureTapCallback? getPremiumTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class GetPremium extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 AppInkWell(
-                  onTap: () {},
+                  onTap: getPremiumTap,
                   radius: 20,
                   decoration: AppDecoration.boxDecoration(
                     radius: 20,

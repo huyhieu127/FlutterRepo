@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppConfigs {
-  AppConfigs._();
+class AppShimmer {
+  AppShimmer._();
 
   static const shimmerGradient = LinearGradient(
     colors: [

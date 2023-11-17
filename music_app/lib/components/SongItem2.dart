@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:music_app/helper/AppConfigs.dart';
+import 'package:music_app/helper/AppShimmer.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -15,7 +15,7 @@ class SongItem2 extends StatelessWidget {
   }
 
   _loading() => const Shimmer(
-        gradient: AppConfigs.shimmerGradient,
+        gradient: AppShimmer.shimmerGradient,
         child: AppShimmerView(width: 100, height: 100, radius: 24),
       );
 

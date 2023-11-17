@@ -7,11 +7,13 @@ import 'package:music_app/components/SongItem2.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/helper/AppRoute.dart';
+import 'package:music_app/helper/AppShimmer.dart';
+import 'package:music_app/models/UserForm.dart';
 import 'package:music_app/pages/home/cubit/home_cubit.dart';
-import 'package:music_app/pages/home/cubit/new_updates/home_new_updates_cubit.dart';
-import 'package:music_app/pages/home/cubit/subscriptions/home_subscriptions_cubit.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
+import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:music_app/widgets/AppTextTopic.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,24 +23,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
-  final homeSubscriptionsCubit = HomeSubscriptionsCubit();
-  final homeNewUpdatesCubit = HomeNewUpdatesCubit();
+  final homeCubit = HomeCubit();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    homeCubit.fetchHomeData();
+    homeCubit.fetchSubscriptions();
+    homeCubit.fetchNewUpdates();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => HomeCubit(),
-        ),
-        BlocProvider(
-          create: (context) => homeSubscriptionsCubit..fetchData(),
-        ),
-        BlocProvider(
-          create: (context) => homeNewUpdatesCubit..fetchData(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) {
+        return homeCubit;
+      },
       child: SafeArea(
         child: Scaffold(
           body: Column(
@@ -46,58 +49,14 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
               // Header
               Padding(
                 padding: const EdgeInsets.only(left: 24.0, top: 8, bottom: 8, right: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(25.0),
-                      child: Image.asset(
-                        "$assetImage/avatar_female_small.jpg",
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Good Morning! 👋",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              "Taylor Swift",
-                              style: TextStyle(
-                                color: AppColor.text1,
-                                fontWeight: FontWeight.w700,
-                                height: 1.1,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    AppInkWell(
-                      onTap: () {
-                        homeSubscriptionsCubit.fetchData();
-                        homeNewUpdatesCubit.fetchData();
-                      },
-                      radius: 25,
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SvgPicture.asset("$assetIcon/ic_notification.svg"),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  buildWhen: (p, c) => c is HomeLoadingState || c is HomeUserState,
+                  builder: (context, state) {
+                    return _header(
+                      isLoading: state is! HomeUserState,
+                      user: state is HomeUserState ? state.user : null,
+                    );
+                  },
                 ),
               ),
 
@@ -105,51 +64,102 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 8),
                       // Get Premium
-                      const SizedBox(height: 8),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24.0),
-                        child: GetPremium(),
+                      BlocBuilder<HomeCubit, HomeState>(
+                        buildWhen: (p, c) => c is HomeInitial || c is HomeLoadingState || c is HomePremiumState,
+                        builder: (context, state) {
+                          if (state is HomePremiumState) {
+                            return Visibility(
+                              visible: !state.isPremium,
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 16),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                    child: GetPremium(
+                                      getPremiumTap: () {
+                                        homeCubit.getPremium();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return const Shimmer(
+                              gradient: AppShimmer.shimmerGradient,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 16),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                                    child: AppShimmerView(width: double.infinity, height: 180, radius: 25),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
                       ),
                       // Subscriptions
                       const SizedBox(height: 16),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Title
-                          AppTextTopic(
-                            label: "Subscriptions",
-                            buttonName: "See All",
-                            onTapButton: () {},
+                          BlocBuilder<HomeCubit, HomeState>(
+                            buildWhen: (p, c) => c is HomeUserState || c is HomeLoadingState,
+                            builder: (context, state) {
+                              if (state is HomeUserState) {
+                                return AppTextTopic(
+                                  label: "Subscriptions",
+                                  buttonName: "See All",
+                                  onTapButton: () {},
+                                );
+                              }
+                              return const Shimmer(
+                                gradient: AppShimmer.shimmerGradient,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 24),
+                                  child: AppShimmerView.shimmerText(
+                                    width: 250,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           // List
                           const SizedBox(height: 12),
                           SizedBox(
                             height: 100,
-                            child: BlocBuilder<HomeSubscriptionsCubit, HomeSubscriptionsState>(
-                              builder: (BuildContext context, HomeSubscriptionsState state) {
-                                var isSuccess = state is HomeSubscriptionsSuccess;
-                                var listItem = state is HomeSubscriptionsSuccess ? state.data : null;
-                                return ListView.separated(
-                                  physics: isSuccess ? null : const NeverScrollableScrollPhysics(),
-                                  itemCount: listItem?.length ?? 5,
-                                  scrollDirection: Axis.horizontal,
-                                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, AppRoute.library);
-                                      },
-                                      child: SongItem2(
-                                        thumbnail: listItem?[index] ?? "",
-                                        isLoading: !isSuccess,
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
-                                );
-                              },
-                            ),
+                            child: BlocBuilder<HomeCubit, HomeState>(
+                                buildWhen: (p, c) => c is HomeSubscriptionsState,
+                                builder: (context, state) {
+                                  List<String>? listItem;
+                                  bool isLoading = true;
+                                  if (state is HomeSubscriptionsState) {
+                                    listItem = state.data;
+                                    isLoading = state.isLoading;
+                                  }
+                                  return ListView.separated(
+                                    physics: isLoading ? const NeverScrollableScrollPhysics() : null,
+                                    itemCount: listItem?.length ?? 5,
+                                    scrollDirection: Axis.horizontal,
+                                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context, AppRoute.library);
+                                        },
+                                        child: SongItem2(
+                                          thumbnail: listItem?[index] ?? "",
+                                          isLoading: isLoading,
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
+                                  );
+                                }),
                           )
                         ],
                       ),
@@ -157,22 +167,43 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                       // New Updates
                       const SizedBox(height: 16),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Title
-                          AppTextTopic(
-                            label: "New Updates",
-                            buttonName: "See All",
-                            onTapButton: () {},
+                          BlocBuilder<HomeCubit, HomeState>(
+                            buildWhen: (p, c) => c is HomeUserState || c is HomeLoadingState,
+                            builder: (context, state) {
+                              if (state is HomeUserState) {
+                                return AppTextTopic(
+                                  label: "New Updates",
+                                  buttonName: "See All",
+                                  onTapButton: () {},
+                                );
+                              }
+                              return const Shimmer(
+                                gradient: AppShimmer.shimmerGradient,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 24),
+                                  child: AppShimmerView.shimmerText(
+                                    width: 200,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           // List
                           const SizedBox(height: 12),
-                          BlocBuilder<HomeNewUpdatesCubit, HomeNewUpdatesState>(
+                          BlocBuilder<HomeCubit, HomeState>(
+                            buildWhen: (p, c) => c is HomeNewUpdatesState,
                             builder: (context, state) {
-                              var isSuccess = state is HomeNewUpdatesSuccess;
-                              var listItem = state is HomeNewUpdatesSuccess ? state.data : null;
+                              List<String>? listItem;
+                              bool isLoading = true;
+                              if (state is HomeNewUpdatesState) {
+                                listItem = state.data;
+                                isLoading = state.isLoading;
+                              }
                               return ListView.separated(
-                                itemCount: listItem?.length ?? 10,
-                                //newUpdates.length,
+                                itemCount: listItem?.length ?? 5,
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.only(bottom: 24),
@@ -198,7 +229,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                         onTapMore: () {},
                                         isAddedPlaylist: false,
                                         isDownloaded: false,
-                                        isLoading: !isSuccess,
+                                        isLoading: isLoading,
                                       ));
                                 },
                                 separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
@@ -216,6 +247,92 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
         ),
       ),
     );
+  }
+
+  _header({required bool isLoading, required UserForm? user}) {
+    if (isLoading) {
+      return const Shimmer(
+        gradient: AppShimmer.shimmerGradient,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AppShimmerView(width: 50, height: 50, radius: 25),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppShimmerView.shimmerText(width: 150),
+                    SizedBox(height: 4),
+                    AppShimmerView.shimmerText(width: 80),
+                  ],
+                ),
+              ),
+            ),
+            AppShimmerView(width: 40, height: 40, radius: 20),
+            SizedBox(width: 10),
+          ],
+        ),
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(25.0),
+            child: Image.asset(
+              user?.avatarUrl ?? "$assetImage/avatar_female_small.jpg",
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Good Morning! 👋",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+                  ),
+                  Text(
+                    "${user?.firstName ?? "Taylor"} ${user?.lastName ?? "Swift"}",
+                    style: const TextStyle(
+                      color: AppColor.text1,
+                      fontWeight: FontWeight.w700,
+                      height: 1.1,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          AppInkWell(
+            onTap: () {
+              homeCubit
+                ..fetchHomeData()
+                ..fetchSubscriptions()
+                ..fetchNewUpdates();
+            },
+            radius: 25,
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: SvgPicture.asset("$assetIcon/ic_notification.svg"),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   @override

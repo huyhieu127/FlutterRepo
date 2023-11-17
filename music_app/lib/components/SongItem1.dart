@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:music_app/helper/AppColor.dart';
-import 'package:music_app/helper/AppConfigs.dart';
+import 'package:music_app/helper/AppShimmer.dart';
 import 'package:music_app/widgets/AppControllerItem.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:shimmer/shimmer.dart';
@@ -40,7 +40,7 @@ class SongItem1 extends StatelessWidget {
   }
 
   _loading() => const Shimmer(
-        gradient: AppConfigs.shimmerGradient,
+        gradient: AppShimmer.shimmerGradient,
         child: Row(
           children: [
             AppShimmerView(width: 120, height: 120, radius: 24),
