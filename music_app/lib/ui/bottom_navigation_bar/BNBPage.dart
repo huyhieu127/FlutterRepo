@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
-import 'package:music_app/pages/discover/DiscoverPage.dart';
-import 'package:music_app/pages/home/HomePage.dart';
-import 'package:music_app/pages/library/LibraryPage.dart';
-import 'package:music_app/pages/menu/MenuForm.dart';
-import 'package:music_app/pages/profile/ProfilePage.dart';
+import 'package:music_app/ui/pages/discover/DiscoverPage.dart';
+import 'package:music_app/ui/pages/home/HomePage.dart';
+import 'package:music_app/ui/pages/library/LibraryPage.dart';
+import 'package:music_app/ui/bottom_navigation_bar/MenuItem.dart';
+import 'package:music_app/ui/pages/profile/ProfilePage.dart';
 
-import '../../helper/AppColor.dart';
-
-class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+class BNBPage extends StatefulWidget {
+  const BNBPage({super.key});
 
   @override
-  State<MenuPage> createState() => _MenuPageState();
+  State<BNBPage> createState() =>
+      _BNBPageState();
 }
 
 const sizeIcon = Size(32, 32);
 
-class _MenuPageState extends State<MenuPage> {
+class _BNBPageState extends State<BNBPage> {
   @override
   void initState() {
     super.initState();
@@ -28,7 +28,7 @@ class _MenuPageState extends State<MenuPage> {
 
   final PageController _pageController = PageController();
   final menus = [
-    MenuForm(
+    MenuItem(
       page: const HomePage(),
       label: "Home",
       icon: SvgPicture.asset(
@@ -44,7 +44,7 @@ class _MenuPageState extends State<MenuPage> {
         height: sizeIcon.height,
       ),
     ),
-    MenuForm(
+    MenuItem(
       page: const DiscoverPage(),
       label: "Discover",
       icon: SvgPicture.asset(
@@ -60,7 +60,7 @@ class _MenuPageState extends State<MenuPage> {
         height: sizeIcon.height,
       ),
     ),
-    MenuForm(
+    MenuItem(
       page: const LibraryPage(),
       label: "Library",
       icon: SvgPicture.asset(
@@ -76,7 +76,7 @@ class _MenuPageState extends State<MenuPage> {
         height: sizeIcon.height,
       ),
     ),
-    MenuForm(
+    MenuItem(
       page: const ProfilePage(),
       label: "Profile",
       icon: SvgPicture.asset(

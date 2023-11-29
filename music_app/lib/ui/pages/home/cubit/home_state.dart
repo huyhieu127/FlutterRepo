@@ -5,11 +5,14 @@ abstract class HomeState extends Equatable {
 }
 
 class HomeInitial extends HomeState {
+  const HomeInitial();
+
   @override
   List<Object> get props => [];
 }
 
 class HomeLoadingState extends HomeState {
+  const HomeLoadingState();
   @override
   List<Object> get props => [];
 }
@@ -17,7 +20,7 @@ class HomeLoadingState extends HomeState {
 class HomeUserState extends HomeState {
   const HomeUserState({required this.user});
 
-  final UserForm user;
+  final UserModel user;
 
   @override
   List<Object> get props => [user];
@@ -42,7 +45,8 @@ class HomePremiumState extends HomeState {
 }
 
 class HomeSubscriptionsState extends HomeState {
-  const HomeSubscriptionsState({required this.isLoading, required this.data, required this.error});
+  const HomeSubscriptionsState(
+      {required this.isLoading, required this.data, required this.error});
 
   final bool isLoading;
   final List<String>? data;
@@ -53,7 +57,8 @@ class HomeSubscriptionsState extends HomeState {
 }
 
 class HomeNewUpdatesState extends HomeState {
-  const HomeNewUpdatesState({required this.isLoading, required this.data, required this.error});
+  const HomeNewUpdatesState(
+      {required this.isLoading, required this.data, required this.error});
 
   final bool isLoading;
   final List<String>? data;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/components/SongItem1.dart';
-import 'package:music_app/components/SongItem2.dart';
+import 'package:music_app/ui/components/SongItem1.dart';
+import 'package:music_app/ui/components/SongItem2.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/widgets/AppHeader.dart';
 import 'package:music_app/widgets/AppSearchBox.dart';

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:music_app/components/GetPremium.dart';
-import 'package:music_app/components/SongItem1.dart';
-import 'package:music_app/components/SongItem2.dart';
+import 'package:music_app/ui/components/GetPremium.dart';
+import 'package:music_app/ui/components/SongItem1.dart';
+import 'package:music_app/ui/components/SongItem2.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/helper/AppRoute.dart';
 import 'package:music_app/helper/AppShimmer.dart';
 import 'package:music_app/models/UserForm.dart';
-import 'package:music_app/pages/home/cubit/home_cubit.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:music_app/widgets/AppTextTopic.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'cubit/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,17 +23,19 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final homeCubit = HomeCubit();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    callApi();
+  }
 
-    homeCubit.fetchHomeData();
-    homeCubit.fetchSubscriptions();
-    homeCubit.fetchNewUpdates();
+  Future<void> callApi() async {
+    await homeCubit.fetchHomeData();
   }
 
   @override
@@ -48,9 +51,11 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
             children: [
               // Header
               Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 8, bottom: 8, right: 12),
+                padding: const EdgeInsets.only(
+                    left: 24.0, top: 8, bottom: 8, right: 12),
                 child: BlocBuilder<HomeCubit, HomeState>(
-                  buildWhen: (p, c) => c is HomeLoadingState || c is HomeUserState,
+                  buildWhen: (p, c) =>
+                      c is HomeLoadingState || c is HomeUserState,
                   builder: (context, state) {
                     return _header(
                       isLoading: state is! HomeUserState,
@@ -66,8 +71,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                     children: [
                       // Get Premium
                       BlocBuilder<HomeCubit, HomeState>(
-                        buildWhen: (p, c) => c is HomeInitial || c is HomeLoadingState || c is HomePremiumState,
+                        buildWhen: (p, c) =>
+                            c is HomeInitial ||
+                            c is HomeLoadingState ||
+                            c is HomePremiumState,
                         builder: (context, state) {
+                          print(state);
                           if (state is HomePremiumState) {
                             return Visibility(
                               visible: !state.isPremium,
@@ -75,7 +84,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                 children: [
                                   const SizedBox(height: 16),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24.0),
                                     child: GetPremium(
                                       getPremiumTap: () {
                                         homeCubit.getPremium();
@@ -92,8 +102,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                 children: [
                                   SizedBox(height: 16),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 24.0),
-                                    child: AppShimmerView(width: double.infinity, height: 180, radius: 25),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 24.0),
+                                    child: AppShimmerView(
+                                        width: double.infinity,
+                                        height: 180,
+                                        radius: 25),
                                   ),
                                 ],
                               ),
@@ -108,7 +122,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                         children: [
                           // Title
                           BlocBuilder<HomeCubit, HomeState>(
-                            buildWhen: (p, c) => c is HomeUserState || c is HomeLoadingState,
+                            buildWhen: (p, c) =>
+                                c is HomeUserState || c is HomeLoadingState,
                             builder: (context, state) {
                               if (state is HomeUserState) {
                                 return AppTextTopic(
@@ -133,7 +148,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                           SizedBox(
                             height: 100,
                             child: BlocBuilder<HomeCubit, HomeState>(
-                                buildWhen: (p, c) => c is HomeSubscriptionsState,
+                                buildWhen: (p, c) =>
+                                    c is HomeSubscriptionsState,
                                 builder: (context, state) {
                                   List<String>? listItem;
                                   bool isLoading = true;
@@ -142,14 +158,18 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                     isLoading = state.isLoading;
                                   }
                                   return ListView.separated(
-                                    physics: isLoading ? const NeverScrollableScrollPhysics() : null,
+                                    physics: isLoading
+                                        ? const NeverScrollableScrollPhysics()
+                                        : null,
                                     itemCount: listItem?.length ?? 5,
                                     scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24),
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Navigator.pushNamed(context, AppRoute.library);
+                                          Navigator.pushNamed(
+                                              context, AppRoute.library);
                                         },
                                         child: SongItem2(
                                           thumbnail: listItem?[index] ?? "",
@@ -157,7 +177,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                         ),
                                       );
                                     },
-                                    separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 16),
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const SizedBox(width: 16),
                                   );
                                 }),
                           )
@@ -171,7 +193,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                         children: [
                           // Title
                           BlocBuilder<HomeCubit, HomeState>(
-                            buildWhen: (p, c) => c is HomeUserState || c is HomeLoadingState,
+                            buildWhen: (p, c) =>
+                                c is HomeUserState || c is HomeLoadingState,
                             builder: (context, state) {
                               if (state is HomeUserState) {
                                 return AppTextTopic(
@@ -209,10 +232,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                 padding: const EdgeInsets.only(bottom: 24),
                                 itemBuilder: (context, index) {
                                   return Padding(
-                                      padding: const EdgeInsets.only(left: 24, right: 14),
+                                      padding: const EdgeInsets.only(
+                                          left: 24, right: 14),
                                       child: SongItem1(
                                         thumbnail: listItem?[index] ?? "",
-                                        title: 'Chúng ta của hiện tại và tương lai trong quá khứ tiếp diễn',
+                                        title:
+                                            'Chúng ta của hiện tại và tương lai trong quá khứ tiếp diễn',
                                         author: 'Sơn Tường - ATM',
                                         time: 456000,
                                         onTapPlay: () {},
@@ -232,7 +257,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                                         isLoading: isLoading,
                                       ));
                                 },
-                                separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const SizedBox(height: 20),
                               );
                             },
                           ),
@@ -249,7 +276,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     );
   }
 
-  _header({required bool isLoading, required UserForm? user}) {
+  _header({required bool isLoading, required UserModel? user}) {
     if (isLoading) {
       return const Shimmer(
         gradient: AppShimmer.shimmerGradient,
@@ -315,10 +342,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
           ),
           AppInkWell(
             onTap: () {
-              homeCubit
-                ..fetchHomeData()
-                ..fetchSubscriptions()
-                ..fetchNewUpdates();
+              homeCubit.fetchHomeData();
             },
             radius: 25,
             child: SizedBox(

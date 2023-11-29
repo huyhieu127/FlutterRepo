@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:music_app/components/SongItem3.dart';
+import 'package:music_app/ui/components/SongItem3.dart';
 
 class LibrarySubscription extends StatefulWidget {
   const LibrarySubscription({super.key, required this.subscriptions});

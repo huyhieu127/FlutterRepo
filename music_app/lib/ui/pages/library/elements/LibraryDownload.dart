@@ -1,9 +1,9 @@
-
 import 'package:flutter/widgets.dart';
-import 'package:music_app/components/SongItem1.dart';
+import 'package:music_app/ui/components/SongItem1.dart';
 
 class LibraryDownload extends StatefulWidget {
   const LibraryDownload({super.key, required this.downloads});
+
   final List<String> downloads;
 
   @override
@@ -39,7 +39,8 @@ class _LibraryDownloadState extends State<LibraryDownload> {
           isDownloaded: true,
         );
       },
-      separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
+      separatorBuilder: (BuildContext context, int index) =>
+          const SizedBox(height: 20),
     );
   }
 }

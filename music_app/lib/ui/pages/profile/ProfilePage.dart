@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/components/GetPremium.dart';
-import 'package:music_app/components/QuestionBottomSheet.dart';
+import 'package:music_app/ui/components/GetPremium.dart';
+import 'package:music_app/ui/components/QuestionBottomSheet.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppDecoration.dart';
 import 'package:music_app/helper/AppResource.dart';

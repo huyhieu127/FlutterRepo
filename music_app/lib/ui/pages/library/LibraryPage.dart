@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
-import 'package:music_app/pages/library/elements/LibraryDownload.dart';
-import 'package:music_app/pages/library/elements/LibrarySubsciption.dart';
+import 'package:music_app/ui/pages/library/elements/LibraryDownload.dart';
+import 'package:music_app/ui/pages/library/elements/LibrarySubsciption.dart';
 import 'package:music_app/widgets/AppHeader.dart';
 import 'package:music_app/widgets/AppIndicatorTab.dart';
 

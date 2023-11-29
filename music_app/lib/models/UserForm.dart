@@ -1,9 +1,9 @@
-class UserForm {
-  UserForm(this.avatarUrl, this.firstName, this.lastName, this.isNotification, this.isPremium);
-
+class UserModel {
   String avatarUrl;
   String firstName;
   String lastName;
   bool isNotification;
   bool isPremium;
+
+  UserModel(this.avatarUrl, this.firstName, this.lastName, this.isNotification, this.isPremium);
 }
