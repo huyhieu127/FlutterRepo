@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/pages/discover/DiscoverPage.dart';
@@ -19,6 +20,12 @@ class MenuPage extends StatefulWidget {
 const sizeIcon = Size(32, 32);
 
 class _MenuPageState extends State<MenuPage> {
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
+
   final PageController _pageController = PageController();
   final menus = [
     MenuForm(

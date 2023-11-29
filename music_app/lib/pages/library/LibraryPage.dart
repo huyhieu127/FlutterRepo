@@ -51,9 +51,9 @@ class _LibraryPageState extends State<LibraryPage> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     super.build(context);
     var tabController = TabController(length: 2, vsync: this);
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
             // Header
             AppHeader(
