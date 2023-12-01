@@ -3,23 +3,22 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
+import 'package:music_app/ui/bottom_navigation_bar/MenuItem.dart';
 import 'package:music_app/ui/pages/discover/DiscoverPage.dart';
 import 'package:music_app/ui/pages/home/HomePage.dart';
 import 'package:music_app/ui/pages/library/LibraryPage.dart';
-import 'package:music_app/ui/bottom_navigation_bar/MenuItem.dart';
 import 'package:music_app/ui/pages/profile/ProfilePage.dart';
 
-class BNBPage extends StatefulWidget {
-  const BNBPage({super.key});
+class BottomNavBarPage extends StatefulWidget {
+  const BottomNavBarPage({super.key});
 
   @override
-  State<BNBPage> createState() =>
-      _BNBPageState();
+  State<BottomNavBarPage> createState() => _BottomNavBarPageState();
 }
 
 const sizeIcon = Size(32, 32);
 
-class _BNBPageState extends State<BNBPage> {
+class _BottomNavBarPageState extends State<BottomNavBarPage> {
   @override
   void initState() {
     super.initState();

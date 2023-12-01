@@ -26,6 +26,8 @@ class SongItem2 extends StatelessWidget {
           width: 100,
           height: 100,
           fit: BoxFit.cover,
+          cacheWidth: 512,
+          cacheHeight: 512,
         ),
       );
 }

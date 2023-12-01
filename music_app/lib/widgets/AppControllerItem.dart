@@ -1,9 +1,13 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppDecoration.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/widgets/AppInkWell.dart';
+import 'package:music_app/widgets/AppText.dart';
+
+import '../bloc/cubits/controller_item/controller_item_cubit.dart';
 
 class ControllerItem extends StatelessWidget {
   const ControllerItem({
@@ -36,23 +40,27 @@ class ControllerItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SizedBox(
               height: 30,
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    "$assetIcon/ic_play_filled.svg",
-                    width: 24,
-                    height: 24,
-                    colorFilter: const ColorFilter.mode(AppColor.icon2, BlendMode.srcIn),
-                  ),
-                  const SizedBox(width: 2),
-                  const Text("Play",
-                      style: TextStyle(
+              child: BlocBuilder<ControllerItemCubit, ControllerItemState>(
+                buildWhen: (p, c) => c is ControllerItemInitialState || c is ControllerItemPlayerState,
+                builder: (context, state) {
+                  final isPlaying = state is ControllerItemPlayerState && state.isPlaying;
+                  return Row(
+                    children: [
+                      Icon(
+                        isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                        size: 20,
                         color: AppColor.icon2,
+                      ),
+                      const SizedBox(width: 2),
+                      AppText.medium(
+                        isPlaying ? "Pause" : "Play",
                         fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      )),
-                  const SizedBox(width: 4),
-                ],
+                        color: AppColor.text2,
+                      ),
+                      const SizedBox(width: 4),
+                    ],
+                  );
+                },
               ),
             ),
           ),

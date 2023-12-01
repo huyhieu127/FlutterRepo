@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/bloc/cubits/controller_item/controller_item_cubit.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppShimmer.dart';
+import 'package:music_app/models/SongModel.dart';
+import 'package:music_app/ui/pages/home/cubit/home_cubit.dart';
 import 'package:music_app/widgets/AppControllerItem.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:shimmer/shimmer.dart';
@@ -8,35 +12,28 @@ import 'package:shimmer/shimmer.dart';
 class SongItem1 extends StatelessWidget {
   const SongItem1({
     super.key,
-    required this.thumbnail,
-    required this.title,
-    required this.author,
-    required this.time,
+    required this.index,
+    required this.onTap,
     required this.onTapPlay,
     required this.onTapAddPlaylist,
     required this.onTapDownload,
     required this.onTapMore,
-    this.isAddedPlaylist = false,
-    this.isDownloaded = false,
     this.isLoading = false,
   });
 
-  final String thumbnail;
-  final String title;
-  final String author;
-  final num time;
+  final int index;
+  final GestureTapCallback onTap;
   final GestureTapCallback onTapPlay;
   final GestureTapCallback onTapAddPlaylist;
   final GestureTapCallback onTapDownload;
   final GestureTapCallback onTapMore;
-
-  final bool isAddedPlaylist;
-  final bool isDownloaded;
   final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? _loading() : _item();
+    final data = context.read<HomeCubit>().lstNewUpdate?[index];
+    data?.controllerItemCubit = context.read<ControllerItemCubit>();
+    return data != null ? _item(data) : _loading();
   }
 
   _loading() => const Shimmer(
@@ -68,91 +65,93 @@ class SongItem1 extends StatelessWidget {
         ),
       );
 
-  _item() => Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: Image.asset(
-              thumbnail,
-              width: 120,
-              height: 120,
-              fit: BoxFit.cover,
+  _item(SongModel data) => GestureDetector(
+        onTap: onTap,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Image.asset(
+                data.thumbnailUrl,
+                width: 120,
+                height: 120,
+                fit: BoxFit.cover,
+                cacheWidth: 512,
+                cacheHeight: 512,
+              ),
             ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: SizedBox(
-              height: 120,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        height: 1.4,
+            const SizedBox(width: 14),
+            Expanded(
+              child: SizedBox(
+                height: 120,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: Text(
+                        data.name,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1.4,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const Expanded(child: SizedBox()),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24.0),
-                    child: Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            author,
+                    const Expanded(child: SizedBox()),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 24.0),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              data.author,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: AppColor.text3,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          const Text(
+                            "|",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.text3,
+                            ),
+                            maxLines: 1,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            _timeToMinute(data.duration),
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: AppColor.text3,
                             ),
-                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        const Text(
-                          "|",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.text3,
-                          ),
-                          maxLines: 1,
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          _timeToMinute(time),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.text3,
-                          ),
-                          maxLines: 1,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  ControllerItem(
-                    onTapPlay: onTapPlay,
-                    onTapAddPlaylist: onTapAddPlaylist,
-                    onTapDownload: onTapDownload,
-                    onTapMore: onTapMore,
-                    isAddedPlaylist: isAddedPlaylist,
-                    isDownloaded: isDownloaded,
-                  ),
-                  const SizedBox(width: 14)
-                ],
+                    const SizedBox(height: 8),
+                    ControllerItem(
+                        onTapPlay: onTapPlay,
+                        onTapAddPlaylist: onTapAddPlaylist,
+                        onTapDownload: onTapDownload,
+                        onTapMore: onTapMore),
+                    const SizedBox(width: 14)
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       );
 }
 

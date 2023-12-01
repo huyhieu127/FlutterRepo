@@ -1,10 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:music_app/helper/AppColor.dart';
+import 'package:music_app/widgets/AppText.dart';
 
 import 'AppInkWell.dart';
 
 class AppTextTopic extends StatelessWidget {
-  const AppTextTopic({super.key, required this.label, required this.buttonName, this.onTapButton});
+  const AppTextTopic(
+      {super.key,
+      required this.label,
+      required this.buttonName,
+      this.onTapButton});
 
   final String label;
   final String buttonName;
@@ -19,14 +24,8 @@ class AppTextTopic extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Flexible(
-            child: Text(
+            child: AppText.large(
               label,
-              style: const TextStyle(
-                color: AppColor.text1,
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                height: 1.4
-              ),
               overflow: TextOverflow.ellipsis,
             ),
           ),

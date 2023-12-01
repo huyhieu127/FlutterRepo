@@ -13,6 +13,7 @@ class HomeInitial extends HomeState {
 
 class HomeLoadingState extends HomeState {
   const HomeLoadingState();
+
   @override
   List<Object> get props => [];
 }
@@ -45,8 +46,7 @@ class HomePremiumState extends HomeState {
 }
 
 class HomeSubscriptionsState extends HomeState {
-  const HomeSubscriptionsState(
-      {required this.isLoading, required this.data, required this.error});
+  const HomeSubscriptionsState({required this.isLoading, required this.data, required this.error});
 
   final bool isLoading;
   final List<String>? data;
@@ -57,11 +57,10 @@ class HomeSubscriptionsState extends HomeState {
 }
 
 class HomeNewUpdatesState extends HomeState {
-  const HomeNewUpdatesState(
-      {required this.isLoading, required this.data, required this.error});
+  const HomeNewUpdatesState({required this.isLoading, required this.data, required this.error});
 
   final bool isLoading;
-  final List<String>? data;
+  final List<SongModel>? data;
   final dynamic error;
 
   @override

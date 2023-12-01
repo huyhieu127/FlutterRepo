@@ -41,6 +41,9 @@ dependencies:
   equatable: ^2.0.5
   shimmer: ^3.0.0
   flutter_native_splash: ^2.3.5
+  #audioplayers: ^5.2.1
+  just_audio: ^0.9.36
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/logo/
+    - assets/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

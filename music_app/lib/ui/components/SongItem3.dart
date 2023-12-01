@@ -23,6 +23,8 @@ class SongItem3 extends StatelessWidget {
             width: 120,
             height: 120,
             fit: BoxFit.cover,
+            cacheWidth: 512,
+            cacheHeight: 512,
           ),
         ),
         const SizedBox(width: 14),

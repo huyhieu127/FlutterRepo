@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/bloc/cubits/audio/audio_cubit.dart';
+import 'package:music_app/bloc/cubits/controller_item/controller_item_cubit.dart';
+import 'package:music_app/helper/AppResource.dart';
+import 'package:music_app/helper/AppRoute.dart';
 import 'package:music_app/ui/components/SongItem1.dart';
 import 'package:music_app/ui/components/SongItem2.dart';
-import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/widgets/AppHeader.dart';
 import 'package:music_app/widgets/AppSearchBox.dart';
 import 'package:music_app/widgets/AppTextTopic.dart';
@@ -115,28 +119,34 @@ class _DiscoverPageState extends State<DiscoverPage> with AutomaticKeepAliveClie
                           shrinkWrap: true,
                           padding: const EdgeInsets.only(bottom: 24),
                           itemBuilder: (context, index) {
+                            final audioCubit = context.read<AudioCubit>();
                             return Padding(
-                                padding: const EdgeInsets.only(left: 24, right: 14),
-                                child: SongItem1(
-                                  thumbnail: newUpdates[index + 1],
-                                  title: 'Chúng ta của hiện tại và tương lai trong quá khứ tiếp diễn',
-                                  author: 'Sơn Tường - ATM',
-                                  time: 456000,
-                                  onTapPlay: () {},
-                                  onTapAddPlaylist: () {
-                                    setState(() {
-                                      //isAddedPlaylist = !isAddedPlaylist;
-                                    });
-                                  },
-                                  onTapDownload: () {
-                                    setState(() {
-                                      //isDownloaded = !isDownloaded;
-                                    });
-                                  },
-                                  onTapMore: () {},
-                                  isAddedPlaylist: false,
-                                  isDownloaded: false,
-                                ));
+                              padding: const EdgeInsets.only(left: 24, right: 14),
+                              child: SongItem1(
+                                index: index,
+                                onTap: () {
+                                  Navigator.pushNamed(context, AppRoute.justAudio);
+                                  audioCubit.playAsset("enchanted-chimes-177906.mp3");
+                                },
+                                onTapPlay: () {
+                                  audioCubit.isPlaying
+                                      ? audioCubit.pause()
+                                      : audioCubit.playAsset("enchanted-chimes-177906.mp3");
+                                  context.read<ControllerItemCubit>().setPlayer(audioCubit.isPlaying);
+                                },
+                                onTapAddPlaylist: () {
+                                  setState(() {
+                                    //isAddedPlaylist = !isAddedPlaylist;
+                                  });
+                                },
+                                onTapDownload: () {
+                                  setState(() {
+                                    //isDownloaded = !isDownloaded;
+                                  });
+                                },
+                                onTapMore: () {},
+                              ),
+                            );
                           },
                           separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 20),
                         ),
