@@ -76,7 +76,7 @@ class _JustAudioPageState extends State<JustAudioPage> {
                             ),
                             const SizedBox(height: 16),
                             AppText(
-                              _song?.author ?? "",
+                              _song?.artist ?? "",
                               fontWeight: FontWeight.w500,
                               textAlign: TextAlign.center,
                             ),

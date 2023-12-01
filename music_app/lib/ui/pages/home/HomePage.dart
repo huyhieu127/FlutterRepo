@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:music_app/bloc/cubits/audio/audio_cubit.dart';
 import 'package:music_app/bloc/cubits/controller_item/controller_item_cubit.dart';
+import 'package:music_app/bloc/cubits/home/home_cubit.dart';
 import 'package:music_app/bloc/cubits/song_item_1/song_item_1_cubit.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
@@ -16,8 +17,6 @@ import 'package:music_app/widgets/AppInkWell.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:music_app/widgets/AppTextTopic.dart';
 import 'package:shimmer/shimmer.dart';
-
-import 'cubit/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -354,7 +353,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     final currentSong = homeCubit.lstNewUpdate?[index];
     final songPlaying = homeCubit.songPlaying;
 
-    audioCubit.playAsset(currentSong?.assetName, index: index);
+    audioCubit.playSong(currentSong, index: index);
     if (currentSong != songPlaying && songPlaying != null) {
       homeCubit.resetStatePlayer();
     }
@@ -366,9 +365,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     final songPlaying = homeCubit.songPlaying;
 
     if (currentSong == songPlaying) {
-      audioCubit.onPlay(currentSong?.assetName, index: index);
+      audioCubit.onPlay(currentSong, index: index);
     } else {
-      audioCubit.playAsset(currentSong?.assetName, index: index);
+      audioCubit.playSong(currentSong, index: index);
       homeCubit.resetStatePlayer();
     }
     homeCubit.updateStatePlayer(index, audioCubit.isPlaying);

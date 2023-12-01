@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:music_app/bloc/cubits/audio/audio_cubit.dart';
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppResource.dart';
 import 'package:music_app/ui/bottom_navigation_bar/MenuItem.dart';
@@ -8,6 +10,8 @@ import 'package:music_app/ui/pages/discover/DiscoverPage.dart';
 import 'package:music_app/ui/pages/home/HomePage.dart';
 import 'package:music_app/ui/pages/library/LibraryPage.dart';
 import 'package:music_app/ui/pages/profile/ProfilePage.dart';
+
+import '../audio_notification/AudioPlayerHandler.dart';
 
 class BottomNavBarPage extends StatefulWidget {
   const BottomNavBarPage({super.key});
@@ -23,6 +27,8 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
+
+    initialAudioService(audioPlayerHandler: context.read<AudioCubit>().audioPlayerHandler);
   }
 
   final PageController _pageController = PageController();

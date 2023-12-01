@@ -4,10 +4,11 @@ import 'package:music_app/bloc/cubits/controller_item/controller_item_cubit.dart
 import 'package:music_app/helper/AppColor.dart';
 import 'package:music_app/helper/AppShimmer.dart';
 import 'package:music_app/models/SongModel.dart';
-import 'package:music_app/ui/pages/home/cubit/home_cubit.dart';
 import 'package:music_app/widgets/AppControllerItem.dart';
 import 'package:music_app/widgets/AppShimmerView.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../bloc/cubits/home/home_cubit.dart';
 
 class SongItem1 extends StatelessWidget {
   const SongItem1({
@@ -107,7 +108,7 @@ class SongItem1 extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              data.author,
+                              data.artist,
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

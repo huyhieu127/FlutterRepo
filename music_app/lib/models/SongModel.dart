@@ -4,7 +4,7 @@ class SongModel {
   final String assetName;
   final String thumbnailUrl;
   final String name;
-  final String author;
+  final String artist;
   final double duration;
 
   bool isPlaying = false;
@@ -14,7 +14,7 @@ class SongModel {
     required this.assetName,
     required this.thumbnailUrl,
     required this.name,
-    required this.author,
+    required this.artist,
     required this.duration,
   });
 }
